@@ -1,31 +1,44 @@
 package com.art0123.LearnFromHome.service;
 
+import com.art0123.LearnFromHome.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
+
     private String username;
+    private String password;
+    private List<GrantedAuthority> roles;
 
+    public MyUserDetails(User user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
 
-    public MyUserDetails(String username) {
-        this.username = username;
+        // if user have multiple roles, split them,
+        // map them to SimpleGrantedAuthority and collect it
+        this.roles = Arrays.stream(user.getRole().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     public MyUserDetails() {
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_TEACHER"));
+        return this.roles;
     }
 
     @Override
     public String getPassword() {
-        return "{noop}qwe";
+        return this.password;
     }
 
     @Override
@@ -52,4 +65,5 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

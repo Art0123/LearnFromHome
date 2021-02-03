@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Teacher Page</title>
 </head>
 <body>
-This is only for teachers.......
+This is only for Teachers
+<br>
+<hr>
+
+<table>
+    <thead>
+    <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Class</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="tempStudent : ${students}">
+            <td th:text="${tempStudent.studentName}"/>
+            <td th:text="${tempStudent.email}"/>
+            <td th:text="${tempStudent.classId.getClassName()}"/>
+        </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

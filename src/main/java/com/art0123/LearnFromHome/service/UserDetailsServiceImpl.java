@@ -1,5 +1,6 @@
 package com.art0123.LearnFromHome.service;
 
+import com.art0123.LearnFromHome.entity.Class;
 import com.art0123.LearnFromHome.entity.Student;
 import com.art0123.LearnFromHome.entity.Teacher;
 import com.art0123.LearnFromHome.repository.StudentRepository;
@@ -10,17 +11,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    TeacherRepository teacherRepository;
-
+    private TeacherRepository teacherRepository;
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,5 +37,13 @@ public class MyUserDetailsService implements UserDetailsService {
             return student.map(MyUserDetails::new).get();
         }
         return teacher.map(MyUserDetails::new).get();
+    }
+
+    public List<Student> findAll() {
+        return studentRepository.findAll();
+    }
+
+    public List<Student> findByClassId(Class classId) {
+        return studentRepository.findStudentsByClassId(classId);
     }
 }

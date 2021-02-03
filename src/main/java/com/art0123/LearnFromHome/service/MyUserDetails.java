@@ -1,6 +1,7 @@
 package com.art0123.LearnFromHome.service;
 
-import com.art0123.LearnFromHome.entity.User;
+import com.art0123.LearnFromHome.entity.Student;
+import com.art0123.LearnFromHome.entity.Teacher;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,15 +17,22 @@ public class MyUserDetails implements UserDetails {
     private String password;
     private List<GrantedAuthority> roles;
 
-    public MyUserDetails(User user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-
-        // if user have multiple roles, split them,
-        // map them to SimpleGrantedAuthority and collect it
-        this.roles = Arrays.stream(user.getRole().split(","))
+    public MyUserDetails(Teacher teacher) {
+        this.username = teacher.getUsername();
+        this.password = teacher.getPassword();
+        this.roles = Arrays.stream(teacher.getRoleId().getRoleName().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
+    }
+
+    public MyUserDetails(Student student) {
+        this.username = student.getUsername();
+        this.password = student.getPassword();
+        this.roles = Arrays.stream(student.getRoleId().getRoleName().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+
     }
 
     public MyUserDetails() {

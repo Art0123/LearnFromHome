@@ -39,11 +39,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return teacher.map(MyUserDetails::new).get();
     }
 
-    public List<Student> findAll() {
-        return studentRepository.findAll();
-    }
-
     public List<Student> findByClassId(Class classId) {
         return studentRepository.findStudentsByClassId(classId);
+    }
+
+    public Teacher findTeacherByClassId(Class classId) {
+        return teacherRepository.findTeacherByClassId(classId);
     }
 }

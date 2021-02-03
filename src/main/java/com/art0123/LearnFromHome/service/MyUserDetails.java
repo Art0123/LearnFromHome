@@ -16,6 +16,7 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private List<GrantedAuthority> roles;
+    private String className;
 
     public MyUserDetails(Teacher teacher) {
         this.username = teacher.getUsername();
@@ -23,7 +24,7 @@ public class MyUserDetails implements UserDetails {
         this.roles = Arrays.stream(teacher.getRoleId().getRoleName().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
+        this.className = teacher.getClassId().getClassName();
     }
 
     public MyUserDetails(Student student) {
@@ -32,7 +33,7 @@ public class MyUserDetails implements UserDetails {
         this.roles = Arrays.stream(student.getRoleId().getRoleName().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
+        this.className = student.getClassId().getClassName();
     }
 
     public MyUserDetails() {
@@ -54,6 +55,10 @@ public class MyUserDetails implements UserDetails {
         return this.username;
     }
 
+    public String getClassName() {
+        return this.className;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -72,6 +77,11 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.username + " " + this.className;
     }
 
 }

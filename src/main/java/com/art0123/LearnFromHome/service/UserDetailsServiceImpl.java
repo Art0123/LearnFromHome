@@ -1,19 +1,20 @@
 package com.art0123.LearnFromHome.service;
 
+import com.art0123.LearnFromHome.entity.*;
 import com.art0123.LearnFromHome.entity.Class;
-import com.art0123.LearnFromHome.entity.Student;
-import com.art0123.LearnFromHome.entity.Teacher;
 import com.art0123.LearnFromHome.repository.StudentRepository;
 import com.art0123.LearnFromHome.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -25,25 +26,72 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Teacher> teacher = teacherRepository.findTeacherByUsername(username);
+        Teacher teacher = teacherRepository.findTeacherByUsername(username);
 
-        if (teacher.isEmpty()) {
-            Optional<Student> student = studentRepository.findStudentByUsername(username);
+        if (teacher == null) {
+            Student student = studentRepository.findStudentByUsername(username);
 
-            if (student.isEmpty()) {
-                throw new NoSuchElementException("User '" + username + "' doesn't exist");
+            if (student == null) {
+                throw new IllegalArgumentException("No user with username: " + username);
             }
 
-            return student.map(MyUserDetails::new).get();
+            List<GrantedAuthority> authorities = buildStudentAuthority(student);
+            return buildStudentForAuthentication(student, authorities);
         }
-        return teacher.map(MyUserDetails::new).get();
+
+        List<GrantedAuthority> authorities = buildTeacherAuthority(teacher);
+        return buildTeacherForAuthentication(teacher, authorities);
     }
 
-    public List<Student> findByClassId(Class classId) {
-        return studentRepository.findStudentsByClassId(classId);
+    private User buildTeacherForAuthentication(Teacher teacher,
+                                            List<GrantedAuthority> authorities) {
+        String username = teacher.getUsername();
+        String password = teacher.getPassword();
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+
+
+        CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities);
+        currentUser.setClassName(teacher.getClassId().getClassName());
+        currentUser.setEmail(teacher.getEmail());
+
+        return currentUser;
     }
 
-    public Teacher findTeacherByClassId(Class classId) {
-        return teacherRepository.findTeacherByClassId(classId);
+    private List<GrantedAuthority> buildTeacherAuthority(Teacher teacher) {
+        return Arrays.stream(teacher.getRoleId().getRoleName().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    private User buildStudentForAuthentication(Student student,
+                                               List<GrantedAuthority> authorities) {
+        String username = student.getUsername();
+        String password = student.getPassword();
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+
+
+        CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities);
+        currentUser.setClassName(student.getClassId().getClassName());
+        currentUser.setEmail(student.getEmail());
+
+        return currentUser;
+    }
+
+    private List<GrantedAuthority> buildStudentAuthority(Student student) {
+        return Arrays.stream(student.getRoleId().getRoleName().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> findStudentsByClassName(String className) {
+        return studentRepository.findStudentsByClassIdClassName(className);
     }
 }

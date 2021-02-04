@@ -16,6 +16,7 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private List<GrantedAuthority> roles;
+    private String teacherName;
     private String className;
 
     public MyUserDetails(Teacher teacher) {
@@ -25,6 +26,7 @@ public class MyUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         this.className = teacher.getClassId().getClassName();
+        this.teacherName = teacher.getTeacherName();
     }
 
     public MyUserDetails(Student student) {
@@ -55,10 +57,6 @@ public class MyUserDetails implements UserDetails {
         return this.username;
     }
 
-    public String getClassName() {
-        return this.className;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -79,9 +77,17 @@ public class MyUserDetails implements UserDetails {
         return true;
     }
 
+    public String getClassName() {
+        return this.className;
+    }
+
+    public String getTeacherName() {
+        return this.teacherName;
+    }
+
     @Override
     public String toString() {
-        return this.username + " " + this.className;
+        return this.teacherName + " " + this.className;
     }
 
 }

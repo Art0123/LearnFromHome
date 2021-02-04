@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Student Home Page</title>
 </head>
 <body>
 <h2>This page is only for Students</h2>
-<br>
-<p>Check your messages from Teacher: </p>
-<a href="@{/messages}">MailBox</a>
+<hr>
+<p>If you have any questions contact your teacher via this email: <span th:text="${myTeacher.email}">email</span></p>
 </body>
 </html>

@@ -3,28 +3,31 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Teacher Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-This is only for Teachers
-<br>
+<div align="middle">
+    <h1>Teacher dashboard</h1>
+</div>
 <hr>
-
-<table>
-    <thead>
-    <tr>
-        <th>Student Name</th>
-        <th>Email</th>
-        <th>Class</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr th:each="tempStudent : ${students}">
-            <td th:text="${tempStudent.studentName}"/>
-            <td th:text="${tempStudent.email}"/>
-            <td th:text="${tempStudent.classId.getClassName()}"/>
-        </tr>
-    </tbody>
-</table>
+<div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Class</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tempStudent : ${students}">
+                <td th:text="${tempStudent.studentName}"/>
+                <td th:text="${tempStudent.email}"/>
+                <td th:text="${tempStudent.userClass.className}"/>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

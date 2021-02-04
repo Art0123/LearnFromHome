@@ -1,7 +1,6 @@
 package com.art0123.LearnFromHome.service;
 
 import com.art0123.LearnFromHome.entity.*;
-import com.art0123.LearnFromHome.entity.Class;
 import com.art0123.LearnFromHome.repository.StudentRepository;
 import com.art0123.LearnFromHome.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +54,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
-        currentUser.setClassName(teacher.getClassId().getClassName());
+        currentUser.setClassName(teacher.getUserClass().getClassName());
         currentUser.setEmail(teacher.getEmail());
 
         return currentUser;
     }
 
     private List<GrantedAuthority> buildTeacherAuthority(Teacher teacher) {
-        return Arrays.stream(teacher.getRoleId().getRoleName().split(","))
+        return Arrays.stream(teacher.getRoleClass().getRoleName().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -79,19 +78,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
-        currentUser.setClassName(student.getClassId().getClassName());
+        currentUser.setClassName(student.getUserClass().getClassName());
         currentUser.setEmail(student.getEmail());
 
         return currentUser;
     }
 
     private List<GrantedAuthority> buildStudentAuthority(Student student) {
-        return Arrays.stream(student.getRoleId().getRoleName().split(","))
+        return Arrays.stream(student.getRoleClass().getRoleName().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
     public List<Student> findStudentsByClassName(String className) {
-        return studentRepository.findStudentsByClassIdClassName(className);
+        return studentRepository.findStudentsByUserClass_ClassName(className);
+    }
+
+    public Teacher findTeacherByClassName(String className) {
+        return teacherRepository.findTeachersByUserClass_ClassName(className);
     }
 }

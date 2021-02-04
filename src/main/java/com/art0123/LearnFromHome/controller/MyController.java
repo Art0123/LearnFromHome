@@ -40,7 +40,15 @@ public class MyController {
     }
 
     @GetMapping("/students")
-    public String showStudentPage() {
+    public String showStudentPage(Model theModel) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CurrentUser student = (CurrentUser)auth.getPrincipal();
+        String className = student.getClassName();
+        Teacher teacher = userDetailsService.findTeacherByClassName(className);
+
+        theModel.addAttribute("myTeacher", teacher);
+
+
         return "students-page";
     }
 }

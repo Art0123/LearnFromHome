@@ -19,21 +19,21 @@ public class Student {
     private String email;
     @OneToOne
     @JoinColumn(name = "role_id")
-    private Role roleId;
+    private Role roleClass;
     @OneToOne
     @JoinColumn(name = "class_id")
-    private Class classId;
+    private Class userClass;
 
     public Student() {
     }
 
-    public Student(String username, String password, String studentName, String email, Role roleId, Class classId) {
+    public Student(String username, String password, String studentName, String email, Role roleClass, Class userClass) {
         this.username = username;
         this.password = password;
         this.studentName = studentName;
         this.email = email;
-        this.roleId = roleId;
-        this.classId = classId;
+        this.roleClass = roleClass;
+        this.userClass = userClass;
     }
 
     public int getId() {
@@ -76,20 +76,20 @@ public class Student {
         this.email = email;
     }
 
-    public Role getRoleId() {
-        return roleId;
+    public Role getRoleClass() {
+        return roleClass;
     }
 
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setRoleClass(Role roleId) {
+        this.roleClass = roleId;
     }
 
-    public Class getClassId() {
-        return classId;
+    public Class getUserClass() {
+        return userClass;
     }
 
-    public void setClassId(Class classId) {
-        this.classId = classId;
+    public void setUserClass(Class classId) {
+        this.userClass = classId;
     }
 
     @Override
@@ -100,8 +100,8 @@ public class Student {
                 ", password='" + password + '\'' +
                 ", studentName='" + studentName + '\'' +
                 ", email='" + email + '\'' +
-                ", roleId=" + roleId +
-                ", classId=" + classId +
+                ", roleId=" + roleClass +
+                ", classId=" + userClass +
                 '}';
     }
 }

@@ -22,7 +22,7 @@
         <tbody>
             <tr th:each="tempStudent : ${students}">
                 <td th:text="${tempStudent.studentName}"/>
-                <td th:text="${tempStudent.email}"/>
+                <td th:text="${tempStudent.studentEmailClass.emailName}"/>
                 <td th:text="${tempStudent.userClass.className}"/>
             </tr>
         </tbody>

@@ -15,23 +15,25 @@ public class Student {
     private String password;
     @Column(name = "student_name")
     private String studentName;
-    @Column(name = "email")
-    private String email;
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role roleClass;
     @OneToOne
     @JoinColumn(name = "class_id")
     private Class userClass;
+    @OneToOne
+    @JoinColumn(name = "email_id")
+    private StudentEmail studentEmailClass;
+
 
     public Student() {
     }
 
-    public Student(String username, String password, String studentName, String email, Role roleClass, Class userClass) {
+    public Student(String username, String password, String studentName, StudentEmail studentEmailClass, Role roleClass, Class userClass) {
         this.username = username;
         this.password = password;
         this.studentName = studentName;
-        this.email = email;
+        this.studentEmailClass = studentEmailClass;
         this.roleClass = roleClass;
         this.userClass = userClass;
     }
@@ -68,14 +70,6 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Role getRoleClass() {
         return roleClass;
     }
@@ -92,6 +86,14 @@ public class Student {
         this.userClass = classId;
     }
 
+    public StudentEmail getStudentEmailClass() {
+        return studentEmailClass;
+    }
+
+    public void setStudentEmailClass(StudentEmail studentEmailClass) {
+        this.studentEmailClass = studentEmailClass;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -99,9 +101,9 @@ public class Student {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", studentName='" + studentName + '\'' +
-                ", email='" + email + '\'' +
-                ", roleId=" + roleClass +
-                ", classId=" + userClass +
+                ", roleClass=" + roleClass +
+                ", userClass=" + userClass +
+                ", studentEmailClass=" + studentEmailClass +
                 '}';
     }
 }

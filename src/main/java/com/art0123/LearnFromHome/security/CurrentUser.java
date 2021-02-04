@@ -1,4 +1,4 @@
-package com.art0123.LearnFromHome.entity;
+package com.art0123.LearnFromHome.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

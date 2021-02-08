@@ -98,4 +98,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public Teacher findTeacherByClassName(String className) {
         return teacherRepository.findTeachersByUserClass_ClassName(className);
     }
+
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
+    }
 }

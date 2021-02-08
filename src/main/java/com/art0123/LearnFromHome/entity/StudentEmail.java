@@ -18,7 +18,7 @@ public class StudentEmail {
     public StudentEmail() {
     }
 
-    public StudentEmail(int id, String emailName, String password) {
+    public StudentEmail(String emailName, String password) {
         this.id = id;
         this.emailName = emailName;
         this.password = password;

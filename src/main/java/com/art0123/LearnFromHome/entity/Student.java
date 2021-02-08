@@ -15,13 +15,13 @@ public class Student {
     private String password;
     @Column(name = "student_name")
     private String studentName;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "role_id")
     private Role roleClass;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "class_id")
     private Class userClass;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "email_id")
     private StudentEmail studentEmailClass;
 

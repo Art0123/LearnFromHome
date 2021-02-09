@@ -15,29 +15,38 @@ public class Student {
     private String password;
     @Column(name = "student_name")
     private String studentName;
-    @Column(name = "email")
-    private String email;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "role_id")
     private Role roleClass;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "class_id")
     private Class userClass;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email_id")
+    private StudentEmail studentEmailClass;
 
     public Student() {
     }
 
-    public Student(String username, String password, String studentName, String email, Role roleClass, Class userClass) {
+    public Student(String username, String password, String studentName, Role roleClass, Class userClass, StudentEmail studentEmailClass) {
         this.username = username;
         this.password = password;
         this.studentName = studentName;
-        this.email = email;
         this.roleClass = roleClass;
         this.userClass = userClass;
+        this.studentEmailClass = studentEmailClass;
     }
 
     public int getId() {
         return id;
+    }
+
+    public StudentEmail getStudentEmailClass() {
+        return studentEmailClass;
+    }
+
+    public void setStudentEmailClass(StudentEmail studentEmailClass) {
+        this.studentEmailClass = studentEmailClass;
     }
 
     public void setId(int id) {
@@ -68,13 +77,6 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Role getRoleClass() {
         return roleClass;
@@ -99,9 +101,9 @@ public class Student {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", studentName='" + studentName + '\'' +
-                ", email='" + email + '\'' +
-                ", roleId=" + roleClass +
-                ", classId=" + userClass +
+                ", roleClass=" + roleClass +
+                ", userClass=" + userClass +
+                ", studentEmailClass=" + studentEmailClass +
                 '}';
     }
 }

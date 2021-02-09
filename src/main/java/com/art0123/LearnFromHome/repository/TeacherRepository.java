@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     Teacher findTeacherByUsername(String username);
-    //Teacher findTeachersByClassIdClassName(String className);
     Teacher findTeachersByUserClass_ClassName(String className);
 }

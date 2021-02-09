@@ -15,8 +15,7 @@ public class Class {
     public Class() {
     }
 
-    public Class(int id, String className) {
-        this.id = id;
+    public Class(String className) {
         this.className = className;
     }
 

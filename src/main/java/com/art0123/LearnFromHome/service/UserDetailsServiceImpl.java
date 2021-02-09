@@ -3,6 +3,7 @@ package com.art0123.LearnFromHome.service;
 import com.art0123.LearnFromHome.entity.*;
 import com.art0123.LearnFromHome.repository.StudentRepository;
 import com.art0123.LearnFromHome.repository.TeacherRepository;
+import com.art0123.LearnFromHome.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -55,7 +56,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
         currentUser.setClassName(teacher.getUserClass().getClassName());
-        currentUser.setEmail(teacher.getEmail());
+        currentUser.setEmail(teacher.getTeacherEmailClass().getEmailName());
 
         return currentUser;
     }
@@ -79,7 +80,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         CurrentUser currentUser = new CurrentUser(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
         currentUser.setClassName(student.getUserClass().getClassName());
-        currentUser.setEmail(student.getEmail());
+        currentUser.setEmail(student.getStudentEmailClass().getEmailName());
 
         return currentUser;
     }
@@ -96,5 +97,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public Teacher findTeacherByClassName(String className) {
         return teacherRepository.findTeachersByUserClass_ClassName(className);
+    }
+
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public List<Teacher> findAllTeachers() {
+        return teacherRepository.findAll();
     }
 }

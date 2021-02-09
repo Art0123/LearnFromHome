@@ -15,31 +15,38 @@ public class Student {
     private String password;
     @Column(name = "student_name")
     private String studentName;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "role_id")
     private Role roleClass;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "class_id")
     private Class userClass;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "email_id")
     private StudentEmail studentEmailClass;
-
 
     public Student() {
     }
 
-    public Student(String username, String password, String studentName, StudentEmail studentEmailClass, Role roleClass, Class userClass) {
+    public Student(String username, String password, String studentName, Role roleClass, Class userClass, StudentEmail studentEmailClass) {
         this.username = username;
         this.password = password;
         this.studentName = studentName;
-        this.studentEmailClass = studentEmailClass;
         this.roleClass = roleClass;
         this.userClass = userClass;
+        this.studentEmailClass = studentEmailClass;
     }
 
     public int getId() {
         return id;
+    }
+
+    public StudentEmail getStudentEmailClass() {
+        return studentEmailClass;
+    }
+
+    public void setStudentEmailClass(StudentEmail studentEmailClass) {
+        this.studentEmailClass = studentEmailClass;
     }
 
     public void setId(int id) {
@@ -70,6 +77,7 @@ public class Student {
         this.studentName = studentName;
     }
 
+
     public Role getRoleClass() {
         return roleClass;
     }
@@ -84,14 +92,6 @@ public class Student {
 
     public void setUserClass(Class classId) {
         this.userClass = classId;
-    }
-
-    public StudentEmail getStudentEmailClass() {
-        return studentEmailClass;
-    }
-
-    public void setStudentEmailClass(StudentEmail studentEmailClass) {
-        this.studentEmailClass = studentEmailClass;
     }
 
     @Override

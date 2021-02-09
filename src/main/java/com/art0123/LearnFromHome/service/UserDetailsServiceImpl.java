@@ -102,4 +102,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
     }
+
+    public List<Teacher> findAllTeachers() {
+        return teacherRepository.findAll();
+    }
 }

@@ -1,49 +1,42 @@
 package com.art0123.LearnFromHome.dao;
 
-import com.art0123.LearnFromHome.entity.Student;
+import com.art0123.LearnFromHome.entity.Teacher;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 
 @Repository
-public class StudentDAOImpl implements StudentDAO {
+public class TeacherDAOImpl implements TeacherDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public StudentDAOImpl(EntityManager entityManager) {
+    public TeacherDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
     @Transactional
-    public void saveStudent(Student student) {
-        // get hibernate session
+    public void saveTeacher(Teacher teacher) {
         Session session = entityManager.unwrap(Session.class);
-
-        // save student
-        session.saveOrUpdate(student);
+        session.saveOrUpdate(teacher);
     }
 
     @Override
     @Transactional
-    public void deleteStudentById(int id) {
-        // get session
+    public void deleteTeacherById(int id) {
         Session session = entityManager.unwrap(Session.class);
-
-        // get student by id
-        Student student = session.get(Student.class, id);
-
-        // delete student
-        session.delete(student);
+        Teacher teacher = session.get(Teacher.class, id);
+        session.delete(teacher);
     }
 
     @Override
     @Transactional
-    public Student findStudentById(int id) {
+    public Teacher findTeacherById(int id) {
         Session session = entityManager.unwrap(Session.class);
-        return session.get(Student.class, id);
+        return session.get(Teacher.class, id);
     }
 }

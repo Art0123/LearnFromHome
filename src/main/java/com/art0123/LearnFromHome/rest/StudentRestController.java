@@ -1,6 +1,5 @@
 package com.art0123.LearnFromHome.rest;
 
-import com.art0123.LearnFromHome.dao.StudentDAOImpl;
 import com.art0123.LearnFromHome.entity.Student;
 import com.art0123.LearnFromHome.service.StudentService;
 import com.art0123.LearnFromHome.service.UserDetailsServiceImpl;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class MyRestController {
+public class StudentRestController {
     @Autowired
     private StudentService studentService;
     @Autowired

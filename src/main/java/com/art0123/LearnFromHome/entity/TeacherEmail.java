@@ -19,7 +19,6 @@ public class TeacherEmail {
     }
 
     public TeacherEmail(String emailName, String password) {
-        this.id = id;
         this.emailName = emailName;
         this.password = password;
     }

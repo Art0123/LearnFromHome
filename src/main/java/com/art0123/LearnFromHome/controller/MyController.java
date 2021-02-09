@@ -1,7 +1,7 @@
 package com.art0123.LearnFromHome.controller;
 
-import com.art0123.LearnFromHome.security.CurrentUser;
 import com.art0123.LearnFromHome.entity.Teacher;
+import com.art0123.LearnFromHome.security.CurrentUser;
 import com.art0123.LearnFromHome.service.UserDetailsServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

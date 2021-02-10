@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
 <h2>This page is only for Students</h2>
 <hr>
 <p>If you have any questions contact your teacher via this email: <span th:text="${myTeacher.teacherEmailClass.emailName}">email</span></p>
+<hr>
+<!-- we get /logout for free from Spring Security filters mapping
+     so dont need controller for this -->
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-primary" value="Logout">
+</form>
 </body>
 </html>

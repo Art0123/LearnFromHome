@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/api/students/**").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/api/teachers/**").permitAll()
-                .and().formLogin().loginPage("/login").permitAll()
+                .and().formLogin().loginPage("/main/login").permitAll()
                 .and().logout().permitAll();
     }
 

@@ -1,6 +1,9 @@
 package com.art0123.LearnFromHome.service;
 
 import com.art0123.LearnFromHome.entity.*;
+import com.art0123.LearnFromHome.entity.Class;
+import com.art0123.LearnFromHome.repository.ClassRepository;
+import com.art0123.LearnFromHome.repository.RoleRepository;
 import com.art0123.LearnFromHome.repository.StudentRepository;
 import com.art0123.LearnFromHome.repository.TeacherRepository;
 import com.art0123.LearnFromHome.security.CurrentUser;
@@ -23,6 +26,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private ClassRepository classRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -105,5 +112,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
+    }
+
+    public Student findStudentByEmail(String email) {
+        return studentRepository.findStudentByStudentEmailClass_EmailName(email);
+    }
+
+    public Role findRoleByName(String roleName) {
+        return roleRepository.findRoleByRoleName(roleName);
+    }
+
+    public Class findStudentClassByName(String className) {
+        return classRepository.findClassByClassName(className);
     }
 }

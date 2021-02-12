@@ -1,6 +1,7 @@
 package com.art0123.LearnFromHome.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "student_emails")

@@ -1,5 +1,6 @@
 package com.art0123.LearnFromHome.dao;
 
+import com.art0123.LearnFromHome.dto.StudentDto;
 import com.art0123.LearnFromHome.entity.Student;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,5 @@ public class StudentDAOImpl implements StudentDAO {
         Session session = entityManager.unwrap(Session.class);
         return session.get(Student.class, id);
     }
+
 }

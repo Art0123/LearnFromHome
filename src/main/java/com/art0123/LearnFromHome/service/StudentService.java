@@ -36,7 +36,7 @@ public class StudentService {
         student.setStudentName(studentDto.getStudentName());
         student.setStudentEmailClass(new StudentEmail(studentDto.getStudentEmail(), studentDto.getPassword()));
         student.setRoleClass(userDetailsService.findRoleByName("ROLE_STUDENT"));
-        student.setUserClass(userDetailsService.findStudentClassByName("A"));
+        student.setUserClass(userDetailsService.findStudentClassByName(studentDto.getStudentClass()));
 
         studentDAO.saveStudent(student);
     }

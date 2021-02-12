@@ -66,11 +66,9 @@ public class RegistrationController {
 
             return "registration-form";
         }
-        System.out.println(theModel.asMap());
-        logger.info(studentDto.getPassword() + " " +studentDto.getStudentName());
 
         studentService.saveRegisteredStudent(studentDto);
-        logger.info("Created Student: " + username);
+        logger.info("Created Student: " + username + " for class: " + studentDto.getStudentClass());
 
         return "confirmation-page";
     }

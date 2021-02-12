@@ -29,7 +29,17 @@ public class StudentDto {
     @Size(min = 1, message ="is required")
     private String studentEmail;
 
+    private String studentClass;
+
     public StudentDto() {
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
     }
 
     public String getUsername() {

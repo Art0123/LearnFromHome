@@ -53,5 +53,4 @@ public class MyController {
     public String showLoginForm() {
         return "login-form";
     }
-
 }

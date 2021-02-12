@@ -1,40 +1,35 @@
 package com.art0123.LearnFromHome.dto;
 
-import com.art0123.LearnFromHome.validation.PasswordMatches;
+import com.art0123.LearnFromHome.validation.FieldMatch;
 import com.art0123.LearnFromHome.validation.ValidEmail;
-import com.sun.istack.NotNull;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@PasswordMatches
+@FieldMatch.List({@FieldMatch(first = "password", second = "matchingPassword", message = "fields must match")})
 public class StudentDto {
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "is required")
+    @Size(min = 1, message ="is required")
     private String username;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "is required")
+    @Size(min = 1, message ="is required")
     private String password;
+
+    @NotNull(message = "is required")
+    @Size(min = 1, message ="is required")
     private String matchingPassword;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "is required")
+    @Size(min = 1, message ="is required")
     private String studentName;
 
     @ValidEmail
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "is required")
+    @Size(min = 1, message ="is required")
     private String studentEmail;
 
     public StudentDto() {
-    }
-
-    public StudentDto(@NotEmpty String username, @NotEmpty String password, String matchingPassword, @NotEmpty String studentName, @NotEmpty String studentEmail) {
-        this.username = username;
-        this.password = password;
-        this.matchingPassword = matchingPassword;
-        this.studentName = studentName;
-        this.studentEmail = studentEmail;
     }
 
     public String getUsername() {

@@ -14,9 +14,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ValidEmail {
-	String message() default "Invalid email";
-
+	String message() default "is invalid";
 	Class<?>[] groups() default {};
-
 	Class<? extends Payload>[] payload() default {};
 }

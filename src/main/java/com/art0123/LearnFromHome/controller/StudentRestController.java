@@ -1,4 +1,4 @@
-package com.art0123.LearnFromHome.rest;
+package com.art0123.LearnFromHome.controller;
 
 import com.art0123.LearnFromHome.entity.Student;
 import com.art0123.LearnFromHome.service.StudentService;

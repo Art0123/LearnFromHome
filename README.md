@@ -35,13 +35,13 @@ Update teacher, need to provide id in JSON body
 
 # Registration form
 Added possibility to register students via /new/registration   
-<p align="center">
-  <img src="https://pix.my/o/xbkyQu?1613381665" width="300" height="400" align="left">
+<p align="left">
+  <img src="https://pix.my/o/xbkyQu?1613381665" width="300" height="400">
 </p>
 
 # Database schema
-<p align="center">
-  <img src="https://pix.my/o/nyA5yk?1613466724" width="350" height="400" align="left">
+<p align="left">
+  <img src="https://pix.my/o/nyA5yk?1613466724" width="350" height="400">
 </p>
 
 
